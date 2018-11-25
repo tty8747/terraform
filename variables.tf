@@ -1,10 +1,10 @@
 variable "aws-region" {
-  default = "eu-west-2"
+  default = "us-east-2"
   description = "Default region"
 }
 
 variable "ami" {
-  default = "ami-06d954f8e6d94f918"
+  default = "ami-0f65671a86f061fcd"
   description = "Region"
 }
 
@@ -14,13 +14,12 @@ variable "insttype" {
 }
 
 variable "domainname" {
-# default = "srwx.net."
-  default = "ubukubu.ru."
-  description = "Name domain"
+  type = "list"
+  default = ["ubukubu.ru.","aaaj.ru."]
 }
 
 variable "keypath" {
-  default = "/home/goto/.ssh/id_rsa.pub"
+  default = "~/.ssh/id_rsa.pub"
   description = "path to pub key"
 }
 

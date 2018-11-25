@@ -1,5 +1,5 @@
 data "aws_route53_zone" "selected" {
-  name    = "${var.domainname}"
+  name    = "${var.domainname[0]}"
 }
 
 resource "aws_route53_record" "fb8747" {
@@ -14,4 +14,9 @@ resource "aws_route53_record" "fb8747" {
 output "route53-out" {
   value = ["${aws_route53_record.fb8747.name}"]
   description = "DNS name"
+}
+
+output "front-ip-addr" {
+  value = "${aws_instance.front.public_ip}"
+  description = "IP add inst front"
 }

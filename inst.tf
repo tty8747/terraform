@@ -37,13 +37,15 @@ resource "aws_ebs_volume" "volume-api" {
 }
 
 resource "aws_volume_attachment" "volume-attach-front" {
-  device_name = "/dev/xvda"
+# device_name = "/dev/xvda"
+  device_name = "/dev/sdf"
   instance_id = "${aws_instance.front.id}"
   volume_id   = "${aws_ebs_volume.volume-front.id}"
 }
 
 resource "aws_volume_attachment" "volume-attach-api" {
-  device_name = "/dev/xvdb"
+# device_name = "/dev/xvdb"
+  device_name = "/dev/sdf"
   instance_id = "${aws_instance.api.id}"
   volume_id   = "${aws_ebs_volume.volume-api.id}"
 }

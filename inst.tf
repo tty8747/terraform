@@ -37,25 +37,25 @@ resource "aws_ebs_volume" "volume-api" {
 }
 
 resource "aws_volume_attachment" "volume-attach-front" {
-##device_name = "/dev/xvda"
-  device_name = "/dev/sdf"
+  device_name = "/dev/xvdx" # xvda - занято системой
   instance_id = "${aws_instance.front.id}"
   volume_id   = "${aws_ebs_volume.volume-front.id}"
 }
 
 resource "aws_volume_attachment" "volume-attach-api" {
-# device_name = "/dev/xvdb"
-  device_name = "/dev/sdf"
+  device_name = "/dev/xvdy" # xvda - занято системой
   instance_id = "${aws_instance.api.id}"
   volume_id   = "${aws_ebs_volume.volume-api.id}"
 }
 
 resource "aws_security_group" "front" {
   name        = "front"
+  vpc_id      = "vpc-004b4e68"
 }
 
 resource "aws_security_group" "api" {
   name        = "api"
+  vpc_id      = "vpc-004b4e68"
 }
 
 resource "aws_security_group_rule" "ssh_access" {
@@ -65,5 +65,16 @@ resource "aws_security_group_rule" "ssh_access" {
   to_port           = "${element(var.ssh_port, count.index)}"
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
+  ipv6_cidr_blocks  = ["::/0"]
+  security_group_id = "${aws_security_group.front.id}"
+}
+
+resource "aws_security_group_rule" "out_all" {
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks       = ["0.0.0.0/0"]
+  ipv6_cidr_blocks  = ["::/0"]
   security_group_id = "${aws_security_group.front.id}"
 }

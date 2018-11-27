@@ -18,5 +18,5 @@ output "route53-out" {
 
 output "front-ip-addr" {
   value = "${aws_instance.front.public_ip}"
-  description = "IP add inst front"
+  description = "IP inst front"
 }

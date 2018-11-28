@@ -27,3 +27,8 @@ variable "ssh_port" {
   type        = "list"
   default     = ["22"]
 }
+
+variable "front_open_nginx" {
+  type        = "list"
+  default     = ["80","443"]
+}

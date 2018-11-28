@@ -69,6 +69,17 @@ resource "aws_security_group_rule" "ssh_access" {
   security_group_id = "${aws_security_group.front.id}"
 }
 
+resource "aws_security_group_rule" "front_open_nginx" {
+  count             = "${length(var.front_open_nginx)}"
+  type              = "ingress"
+  from_port         = "${element(var.front_open_nginx, count.index)}"
+  to_port           = "${element(var.front_open_nginx, count.index)}"
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  ipv6_cidr_blocks  = ["::/0"]
+  security_group_id = "${aws_security_group.front.id}"
+}
+
 resource "aws_security_group_rule" "out_all" {
   type              = "egress"
   from_port         = 0

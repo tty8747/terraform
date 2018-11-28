@@ -5,7 +5,7 @@
 2. vi terraform.tfvars
 
 terraform init
-terraform validate
+terraform validate (terraform console)
 terraform plan
 terraform apply
 terraform destroy

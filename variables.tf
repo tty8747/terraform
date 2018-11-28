@@ -35,5 +35,5 @@ variable "front_open_nginx" {
 
 variable "api-8080" {
   type        = "list"
-  default     = ["8080"]
+  default     = ["22","8080"]
 }

@@ -8,6 +8,7 @@ resource "aws_instance" "front" {
   tags {
     Name                      = "front"
   }
+  depends_on = ["aws_internet_gateway.gw"]
 }
 
 resource "aws_instance" "api" {

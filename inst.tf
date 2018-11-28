@@ -89,3 +89,25 @@ resource "aws_security_group_rule" "out_all" {
   ipv6_cidr_blocks  = ["::/0"]
   security_group_id = "${aws_security_group.front.id}"
 }
+
+resource "aws_security_group_rule" "api-8080-in" {
+  count             = "${length(var.api-8080)}"
+  type              = "ingress"
+  from_port         = "${element(var.api-8080, count.index)}"
+  to_port           = "${element(var.api-8080, count.index)}"
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  ipv6_cidr_blocks  = ["::/0"]
+  security_group_id = "${aws_security_group.api.id}"
+}
+
+resource "aws_security_group_rule" "api-8080-out" {
+  type              = "egress"
+  from_port         = "${element(var.api-8080, count.index)}"
+  to_port           = "${element(var.api-8080, count.index)}"
+  protocol          = "tcp"
+# protocol          = "-1"
+  cidr_blocks       = ["0.0.0.0/0"]
+  ipv6_cidr_blocks  = ["::/0"]
+  security_group_id = "${aws_security_group.api.id}"
+}

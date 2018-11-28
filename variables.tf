@@ -32,3 +32,8 @@ variable "front_open_nginx" {
   type        = "list"
   default     = ["80","443"]
 }
+
+variable "api-8080" {
+  type        = "list"
+  default     = ["8080"]
+}
